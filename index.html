@@ -49,6 +49,7 @@
       <button data-tab="sapaan" class="tab-btn rounded-full px-4 py-2 bg-red-500/30 hover:bg-red-500/40 text-white">Kalimat Sapaan</button>
       <button data-tab="pola" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Pola Kalimat</button>
       <button data-tab="latihan" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Latihan Interaktif</button>
+      <button data-tab="kuis6" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Kuis 6 SD</button>
       <button data-tab="ringkas" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Ringkasan</button>
     </nav>
 
@@ -384,6 +385,23 @@
         </div>
       </section>
 
+      <!-- Kuis 6 SD -->
+      <section id="tab-kuis6" class="hidden fade-in">
+        <div class="card bg-white/10 rounded-2xl p-5">
+          <h3 class="text-lg font-bold mb-3">Kuis 6 SD — 15 Soal Pilihan Ganda</h3>
+          <p class="text-emerald-100 mb-4">Topik: fa'il, maf'ulun bih, jumlah ismiyah & fi'liyah, serta pola kalimat dasar.</p>
+          <form id="quizSD6" class="space-y-4">
+            <div id="quizList" class="space-y-3"></div>
+            <div class="flex items-center gap-3 pt-2">
+              <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+              <button type="button" id="resetSD6" class="rounded-xl px-4 py-2 bg-white/10 hover:bg-white/20">Ulangi</button>
+              <span id="quiz6Result" class="text-sm"></span>
+            </div>
+          </form>
+          <div class="text-xs text-emerald-200 mt-3">Catatan: Kuis ini tidak mencakup materi Anggota Tubuh dan Kalimat Sapaan.</div>
+        </div>
+      </section>
+
       <!-- Ringkasan -->
       <section id="tab-ringkas" class="hidden fade-in">
         <div class="card bg-white/10 rounded-2xl p-5">
@@ -393,7 +411,7 @@
               Fa'il = pelaku (marfū‘). Contoh: الطَّالِبُ.
             </li>
             <li class="bg-white/5 rounded-xl p-3">
-              Maf'ulun bih = objek (manṣūb). Contoh: الْكِتَابَ.
+              Maf'ulun bih = objek (manṣūب). Contoh: الْكِتَابَ.
             </li>
             <li class="bg-white/5 rounded-xl p-3">
               Jumlah fi'liyah: Fi'il + Fa'il + [Maf'ul].
@@ -447,6 +465,7 @@
       'sapaan': document.getElementById('tab-sapaan'),
       'pola': document.getElementById('tab-pola'),
       'latihan': document.getElementById('tab-latihan'),
+      'kuis6': document.getElementById('tab-kuis6'),
       'ringkas': document.getElementById('tab-ringkas')
     };
     tabButtons.forEach(btn => {
@@ -890,6 +909,66 @@
       });
     });
 
+    function buildQuizSD6(){
+      const bank = [
+        {q:"Tentukan fa'il pada kalimat: قَرَأَ الطَّالِبُ الْكِتَابَ", opts:["قَرَأَ","الطَّالِبُ","الْكِتَابَ"], a:1},
+        {q:"Tentukan maf'ulun bih pada kalimat: كَتَبَ الْمُعَلِّمُ الدَّرْسَ", opts:["الْمُعَلِّمُ","الدَّرْسَ","كَتَبَ"], a:1},
+        {q:"Pola jumlah fi'liyah yang benar adalah...", opts:["Mubtada' + Khabar","Fi'il + Fa'il (+ Maf'ul)","Fa'il + Fi'il (+ Maf'ul)"], a:1},
+        {q:"Manakah kalimat jumlah ismiyah?", opts:["قَرَأَ الطَّالِبُ الْكِتَابَ","الْمُدَرِّسُ مُجْتَهِدٌ","شَرِبَ الرَّجُلُ الْمَاءَ"], a:1},
+        {q:"Tanda umum i'rab fa'il", opts:["manṣūb (a)","majrūr (i)","marfū‘ (u)"], a:2},
+        {q:"Tanda umum i'rab maf'ul", opts:["marfū‘ (u)","manṣūb (a)","majrūr (i)"], a:1},
+        {q:"Pilih fi'il", opts:["الرَّجُلُ","قَرَأَ","الْكِتَابَ"], a:1},
+        {q:"Pilih fa'il", opts:["الْمَاءَ","الطَّالِبُ","شَرِبَ"], a:1},
+        {q:"Pilih maf'ul", opts:["الطَّالِبُ","قَرَأَ","الْكِتَابَ"], a:2},
+        {q:"Kalimat: أَكَلَ الرَّجُلُ الطَّعَامَ. Siapa pelaku?", opts:["الرَّجُلُ","الطَّعَامَ","أَكَلَ"], a:0},
+        {q:"Kalimat: شَرِبَ الطِّفْلُ الْمَاءَ. Apa objeknya?", opts:["شَرِبَ","الْمَاءَ","الطِّفْلُ"], a:1},
+        {q:"Urutan pola dasar saat ada objek adalah...", opts:["Fa'il + Maf'ul + Fi'il","Fi'il + Fa'il + Maf'ul","Fi'il + Maf'ul + Fa'il"], a:1},
+        {q:"Manakah contoh jumlah ismiyah?", opts:["الْفَلَّاحُ مُجْتَهِدٌ","قَرَأَ الْفَلَّاحُ الدَّرْسَ","شَرِبَ الطَّبِيبُ الْمَاءَ"], a:0},
+        {q:"Dalam قَرَأَ الْمُهَنْدِسُ الْكِتَابَ, maf'ulun bih adalah...", opts:["قَرَأَ","الْمُهَنْدِسُ","الْكِتَابَ"], a:2},
+        {q:"Kalimat berikut yang termasuk jumlah fi'liyah adalah...", opts:["الطَّبِيبُ كَرِيمٌ","أَكَلَ الطَّبِيبُ الطَّعَامَ","الْمُهَنْدِسُ ذَكِيٌّ"], a:1},
+      ];
+      const wrap = document.getElementById('quizList');
+      wrap.innerHTML = '';
+      bank.forEach((item,idx)=>{
+        const box = document.createElement('div');
+        box.className = 'bg-white/5 rounded-xl p-4';
+        const name = `sd6_${idx}`;
+        const optsHtml = item.opts.map((t,i)=>{
+          return `<label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2 mt-2"><input type="radio" name="${name}" value="${i}" class="accent-emerald-500"/> ${t}</label>`;
+        }).join('');
+        box.innerHTML = `<p class="font-semibold">${idx+1}. ${item.q}</p>${optsHtml}`;
+        wrap.appendChild(box);
+      });
+      const form = document.getElementById('quizSD6');
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        let correct = 0;
+        document.querySelectorAll('#quizList > div').forEach((box,idx)=>{
+          const name = `sd6_${idx}`;
+          const val = new FormData(form).get(name);
+          const pick = parseInt(val,10);
+          const right = bank[idx].a;
+          box.classList.remove('valid','error');
+          if (!isNaN(pick) && pick === right) { box.classList.add('valid'); correct++; }
+          else box.classList.add('error');
+        });
+        const res = document.getElementById('quiz6Result');
+        if (correct === bank.length) {
+          res.textContent = 'Luar biasa! 15/15 🎉';
+          res.className = 'text-sm text-emerald-200';
+          addScore(3);
+        } else {
+          res.textContent = `Skor: ${correct}/${bank.length}. Kamu bisa ulangi lagi!`;
+          res.className = 'text-sm text-yellow-200';
+        }
+        setTimeout(()=> document.querySelectorAll('#quizList > div').forEach(b=>b.classList.remove('valid','error')), 1400);
+      });
+      document.getElementById('resetSD6').addEventListener('click', ()=>{
+        buildQuizSD6();
+        document.getElementById('quiz6Result').textContent='';
+      });
+    }
+
     // Init
     loadProgress();
     makeFlashcards();
@@ -897,6 +976,7 @@
     renderGreetings();
     fillSelectOptions();
     renderWordBank();
+    buildQuizSD6();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98412f29f1e5b2df',t:'MTc1ODcwNTM5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98413f27d25dd176',t:'MTc1ODcwNjA1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
