@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belajar Bahasa Arab Interaktif — Fa'il, Maf'ul, Jumlah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Smooth card hover */
+    .card { transition: transform .2s ease, box-shadow .2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 20px 35px rgba(0,0,0,.15); }
+    /* Drag styles */
+    .draggable.dragging { opacity: .65; }
+    .dropzone { transition: background-color .2s ease, border-color .2s ease; }
+    .dropzone.valid { background-color: rgba(34,197,94,.08); border-color: rgb(34,197,94); }
+    .dropzone.error { background-color: rgba(239,68,68,.08); border-color: rgb(239,68,68); }
+    /* Simple fade */
+    .fade-in { animation: fade .35s ease; }
+    @keyframes fade { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-700 via-teal-700 to-cyan-700 text-white">
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div class="space-y-2">
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Belajar Bahasa Arab Interaktif</h1>
+        <p class="text-emerald-100">Kuasi konsep fa'il, maf'ulun bih, jenis jumlah, kosa kata, dan sapaan melalui penjelasan singkat + latihan interaktif.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="bg-white/10 rounded-xl px-4 py-3">
+          <div class="text-xs text-emerald-100">Kemajuan</div>
+          <div class="flex items-end gap-2">
+            <div id="score" class="text-2xl font-bold">0</div>
+            <div id="scoreMax" class="text-emerald-100 text-sm">/ 12</div>
+          </div>
+        </div>
+        <button id="resetProgress" class="rounded-xl px-4 py-3 bg-white/10 hover:bg-white/20 active:scale-[.98] transition">
+          Reset kemajuan
+        </button>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="flex flex-wrap gap-2 mb-6">
+      <button data-tab="konsep" class="tab-btn active rounded-full px-4 py-2 bg-white text-emerald-900 font-semibold shadow">Konsep</button>
+      <button data-tab="kosa" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Kosa Kata Fa'il</button>
+      <button data-tab="tubuh" class="tab-btn rounded-full px-4 py-2 bg-red-500/30 hover:bg-red-500/40 text-white">Anggota Tubuh</button>
+      <button data-tab="sapaan" class="tab-btn rounded-full px-4 py-2 bg-red-500/30 hover:bg-red-500/40 text-white">Kalimat Sapaan</button>
+      <button data-tab="pola" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Pola Kalimat</button>
+      <button data-tab="latihan" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Latihan Interaktif</button>
+      <button data-tab="ringkas" class="tab-btn rounded-full px-4 py-2 bg-white/10 hover:bg-white/20">Ringkasan</button>
+    </nav>
+
+    <!-- Content -->
+    <main class="space-y-6">
+      <!-- Konsep -->
+      <section id="tab-konsep" class="fade-in">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">👤</span>
+              <h2 class="text-xl font-bold">Pengertian Fa'il</h2>
+            </div>
+            <p class="text-emerald-100 leading-relaxed">
+              Fa'il (الفاعل) adalah pelaku perbuatan dalam kalimat. Dalam bahasa Indonesia biasanya setara dengan “subjek”.
+              Dalam bahasa Arab, fa'il mengikuti kata kerja (fi'il) dan biasanya ber-i'rab <em>marfū‘</em> (diakhiri ḍammah).
+            </p>
+            <div class="mt-4 bg-white/5 rounded-xl p-4">
+              <p class="text-sm text-emerald-50"><strong>Contoh:</strong> كَتَبَ <span class="font-semibold">الطَّالِبُ</span> الدَّرْسَ — “Sang siswa menulis pelajaran.” (الطَّالِبُ adalah fa'il)</p>
+            </div>
+          </div>
+
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">🎯</span>
+              <h2 class="text-xl font-bold">Pengertian Maf'ulun Bih</h2>
+            </div>
+            <p class="text-emerald-100 leading-relaxed">
+              Maf‘ulun bih (المفعول به) adalah sasaran dari perbuatan; dalam bahasa Indonesia sering setara dengan “objek”.
+              Dalam bahasa Arab, ia ber-i‘rab <em>manṣūb</em> (biasanya berakhiran fatḥah).
+            </p>
+            <div class="mt-4 bg-white/5 rounded-xl p-4">
+              <p class="text-sm text-emerald-50"><strong>Contoh:</strong> قَرَأَ الطَّالِبُ <span class="font-semibold">الْكِتَابَ</span> — “Siswa membaca <em>buku</em>.” (الْكِتَابَ adalah maf'ulun bih)</p>
+            </div>
+          </div>
+
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">🔤</span>
+              <h2 class="text-xl font-bold">Jumlah Ismiyah</h2>
+            </div>
+            <p class="text-emerald-100 leading-relaxed">
+              Jumlah ismiyah (الجملة الاسمية) adalah kalimat yang dimulai dengan <strong>isim</strong> (kata benda/kata ganti).
+              Biasanya pola “Mubtada’ (subjek) + Khabar (predikat)”.
+            </p>
+            <div class="mt-4 bg-white/5 rounded-xl p-4">
+              <p class="text-sm text-emerald-50"><strong>Contoh:</strong> الْمُدَرِّسُ مُجْتَهِدٌ — “Guru itu rajin.”</p>
+            </div>
+          </div>
+
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">⚡</span>
+              <h2 class="text-xl font-bold">Jumlah Fi'liyah</h2>
+            </div>
+            <p class="text-emerald-100 leading-relaxed">
+              Jumlah fi'liyah (الجملة الفعلية) adalah kalimat yang dimulai dengan <strong>fi‘il</strong> (kata kerja), diikuti fa'il,
+              dan (bila ada) maf'ulun bih. Ini bentuk paling umum untuk menceritakan tindakan.
+            </p>
+            <div class="mt-4 bg-white/5 rounded-xl p-4">
+              <p class="text-sm text-emerald-50"><strong>Contoh:</strong> كَتَبَ الطَّالِبُ الدَّرْسَ — “Siswa menulis pelajaran.”</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kosa Kata Fa'il -->
+      <section id="tab-kosa" class="hidden fade-in">
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Flashcards -->
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Fa'il Umum (Pelaku)</h3>
+            <div class="space-y-3" id="flashcards">
+              <!-- Cards generated by JS -->
+            </div>
+          </div>
+
+          <div class="card bg-white/10 rounded-2xl p-5 md:col-span-2">
+            <h3 class="text-lg font-bold mb-3">Latih Cepat</h3>
+            <form id="quickMatch" class="space-y-4">
+              <p class="text-emerald-100">Pilih pasangan yang tepat (Arab → Arti):</p>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="ar1"></select>
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="id1"></select>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="ar2"></select>
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="id2"></select>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="ar3"></select>
+                <select class="w-full rounded-xl px-3 py-2 text-emerald-900" name="id3"></select>
+              </div>
+              <div class="flex items-center gap-3 pt-2">
+                <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+                <span id="matchResult" class="text-sm"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Anggota Tubuh -->
+      <section id="tab-tubuh" class="hidden fade-in">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Kosa Kata Anggota Tubuh</h3>
+            <div id="bodyList" class="space-y-2"></div>
+          </div>
+          <div class="card bg-white/10 rounded-2xl p-5 md:col-span-2">
+            <h3 class="text-lg font-bold mb-3">Latihan Cocokkan</h3>
+            <form id="bodyMatch" class="space-y-4">
+              <p class="text-emerald-100">Seret label arti ke kata Arab yang tepat.</p>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div id="bodyWords" class="space-y-2"></div>
+                <div id="bodyMeanings" class="space-y-2"></div>
+              </div>
+              <div class="flex items-center gap-3 pt-2">
+                <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+                <span id="bodyResult" class="text-sm"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kalimat Sapaan -->
+      <section id="tab-sapaan" class="hidden fade-in">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Kosa Kata & Contoh</h3>
+            <div class="space-y-3" id="greetList"></div>
+            <div class="mt-4 text-sm text-emerald-100">
+              Tips: Balasan yang baik sering mengulang sapaan + menambahkan doa singkat.
+            </div>
+          </div>
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Kuis Balasan Sapaan</h3>
+            <form id="greetQuiz" class="space-y-4">
+              <div class="bg-white/5 rounded-xl p-4 space-y-2">
+                <p class="text-emerald-50">Sapaan: <span dir="rtl" lang="ar" class="font-bold text-xl">السَّلَامُ عَلَيْكُمْ</span></p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg1" value="waalaikum" class="accent-emerald-500"/>
+                    وَعَلَيْكُمُ السَّلَامُ
+                  </label>
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg1" value="marhaban" class="accent-emerald-500"/>
+                    مَرْحَبًا
+                  </label>
+                </div>
+              </div>
+
+              <div class="bg-white/5 rounded-xl p-4 space-y-2">
+                <p class="text-emerald-50">Sapaan: <span dir="rtl" lang="ar" class="font-bold text-xl">صَبَاحُ الْخَيْرِ</span> (Selamat pagi)</p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg2" value="sabah" class="accent-emerald-500"/>
+                    صَبَاحُ النُّورِ
+                  </label>
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg2" value="masa" class="accent-emerald-500"/>
+                    مَسَاءُ الْخَيْرِ
+                  </label>
+                </div>
+              </div>
+
+              <div class="bg-white/5 rounded-xl p-4 space-y-2">
+                <p class="text-emerald-50">Sapaan: <span dir="rtl" lang="ar" class="font-bold text-xl">كَيْفَ حَالُكَ؟</span> (Apa kabar?)</p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg3" value="bekhair" class="accent-emerald-500"/>
+                    أَنَا بِخَيْرٍ، الحَمْدُ لِلّٰهِ
+                  </label>
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="qg3" value="maasalama" class="accent-emerald-500"/>
+                    مَعَ السَّلَامَةِ
+                  </label>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 pt-2">
+                <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+                <span id="greetResult" class="text-sm"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pola Kalimat -->
+      <section id="tab-pola" class="hidden fade-in">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Rumus/Pola</h3>
+            <ul class="space-y-3 text-emerald-50">
+              <li class="bg-white/5 rounded-xl p-3">
+                <strong>Jumlah Fi'liyah:</strong> Fi'il (Kata Kerja) + Fa'il (Pelaku) + [Maf'ulun bih (Objek, opsional)]
+              </li>
+              <li class="bg-white/5 rounded-xl p-3">
+                <strong>Jumlah Ismiyah:</strong> Mubtada’ (Subjek) + Khabar (Predikat)
+              </li>
+              <li class="bg-white/5 rounded-xl p-3">
+                <strong>Tanda I'rab Umum:</strong> Fa'il = marfū‘ (u), Maf'ul = manṣūb (a)
+              </li>
+            </ul>
+            <div class="mt-4 text-sm text-emerald-100">
+              Catatan: tanda akhir bisa berubah karena harakat, tanwīn, atau kondisi i‘rab tertentu, namun pola dasarnya tetap sama.
+            </div>
+          </div>
+
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Generator Contoh</h3>
+            <form id="exampleGen" class="space-y-3">
+              <div class="grid sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="text-sm text-emerald-100">Fi'il (K. kerja)</label>
+                  <select id="fiel" class="w-full rounded-xl px-3 py-2 text-emerald-900">
+                    <option value="كَتَبَ|menulis">كَتَبَ — menulis</option>
+                    <option value="قَرَأَ|membaca">قَرَأَ — membaca</option>
+                    <option value="أَكَلَ|makan">أَكَلَ — makan</option>
+                    <option value="شَرِبَ|minum">شَرِبَ — minum</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-sm text-emerald-100">Fa'il (Pelaku)</label>
+                  <select id="fail" class="w-full rounded-xl px-3 py-2 text-emerald-900">
+                    <option value="الطَّالِبُ|siswa">الطَّالِبُ — siswa</option>
+                    <option value="الْمُعَلِّمُ|guru">الْمُعَلِّمُ — guru</option>
+                    <option value="الطَّالِبَةُ|siswi">الطَّالِبَةُ — siswi</option>
+                    <option value="الرَّجُلُ|laki-laki">الرَّجُلُ — laki-laki</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-sm text-emerald-100">Maf'ul (Objek) [opsional]</label>
+                  <select id="mafoul" class="w-full rounded-xl px-3 py-2 text-emerald-900">
+                    <option value="">— tanpa objek</option>
+                    <option value="الْكِتَابَ|buku">الْكِتَابَ — buku</option>
+                    <option value="الْمَاءَ|air">الْمَاءَ — air</option>
+                    <option value="الطَّعَامَ|makanan">الطَّعَامَ — makanan</option>
+                    <option value="الدَّرْسَ|pelajaran">الدَّرْسَ — pelajaran</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 pt-2">
+                <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Buat Contoh</button>
+                <span id="genResult" class="text-sm"></span>
+              </div>
+            </form>
+            <div id="genOutput" class="mt-4 hidden bg-white/10 rounded-xl p-4">
+              <div class="text-2xl font-bold mb-1" dir="rtl" lang="ar"></div>
+              <div class="text-emerald-100"></div>
+              <div class="mt-2 text-sm text-emerald-200"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Latihan -->
+      <section id="tab-latihan" class="hidden fade-in">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- Quiz pilihan ganda -->
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Quiz: Fa'il vs Maf'ul</h3>
+            <form id="quizFM" class="space-y-4">
+              <div class="bg-white/5 rounded-xl p-4 space-y-2">
+                <p dir="rtl" lang="ar" class="text-xl font-semibold">قَرَأَ الطَّالِبُ الْكِتَابَ</p>
+                <p class="text-emerald-100">Tandai: mana fa'il? mana maf'ul?</p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="q1" value="talib-fail" class="accent-emerald-500"/>
+                    الطَّالِبُ = Fa'il
+                  </label>
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="q1" value="kitab-fail" class="accent-emerald-500"/>
+                    الْكِتَابَ = Fa'il
+                  </label>
+                </div>
+              </div>
+
+              <div class="bg-white/5 rounded-xl p-4 space-y-2">
+                <p dir="rtl" lang="ar" class="text-xl font-semibold">أَكَلَ الرَّجُلُ الطَّعَامَ</p>
+                <p class="text-emerald-100">Tandai: mana maf'ul?</p>
+                <div class="grid sm:grid-cols-2 gap-2">
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="q2" value="rajul" class="accent-emerald-500"/>
+                    الرَّجُلُ
+                  </label>
+                  <label class="flex items-center gap-2 bg-white/10 rounded-xl px-3 py-2">
+                    <input type="radio" name="q2" value="taam" class="accent-emerald-500"/>
+                    الطَّعَامَ
+                  </label>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 pt-2">
+                <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+                <span id="quizResult" class="text-sm"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Susun kalimat (drag & drop) -->
+          <div class="card bg-white/10 rounded-2xl p-5">
+            <h3 class="text-lg font-bold mb-3">Susun Kalimat: Fi'il + Fa'il + Maf'ul</h3>
+            <p class="text-emerald-100 mb-3">Seret kata ke kotak yang sesuai: Fi'il (K. kerja), Fa'il (Pelaku), Maf'ul (Objek). Setiap kotak boleh berisi beberapa kata selama sesuai, ya!</p>
+
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              <div class="dropzone rounded-xl border-2 border-white/30 min-h-[64px] p-3" data-accept="fiil">
+                <div class="text-xs text-emerald-100 mb-1">Fi'il</div>
+              </div>
+              <div class="dropzone rounded-xl border-2 border-white/30 min-h-[64px] p-3" data-accept="fail">
+                <div class="text-xs text-emerald-100 mb-1">Fa'il</div>
+              </div>
+              <div class="dropzone rounded-xl border-2 border-white/30 min-h-[64px] p-3" data-accept="mafoul">
+                <div class="text-xs text-emerald-100 mb-1">Maf'ul</div>
+              </div>
+            </div>
+
+            <div id="wordBank" class="flex flex-wrap gap-2">
+              <!-- Words generated by JS -->
+            </div>
+
+            <div class="flex items-center gap-3 mt-4">
+              <button id="checkOrder" class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold">Periksa</button>
+              <button id="resetOrder" class="rounded-xl px-4 py-2 bg-white/10 hover:bg-white/20">Ulangi</button>
+              <span id="orderResult" class="text-sm"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ringkasan -->
+      <section id="tab-ringkas" class="hidden fade-in">
+        <div class="card bg-white/10 rounded-2xl p-5">
+          <h3 class="text-lg font-bold mb-3">Ringkasan Cepat</h3>
+          <ul class="grid md:grid-cols-2 gap-3 text-emerald-50">
+            <li class="bg-white/5 rounded-xl p-3">
+              Fa'il = pelaku (marfū‘). Contoh: الطَّالِبُ.
+            </li>
+            <li class="bg-white/5 rounded-xl p-3">
+              Maf'ulun bih = objek (manṣūb). Contoh: الْكِتَابَ.
+            </li>
+            <li class="bg-white/5 rounded-xl p-3">
+              Jumlah fi'liyah: Fi'il + Fa'il + [Maf'ul].
+            </li>
+            <li class="bg-white/5 rounded-xl p-3">
+              Jumlah ismiyah: Mubtada’ + Khabar.
+            </li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button class="rounded-xl px-4 py-2 bg-white text-emerald-900 font-semibold tab-btn" data-tab="latihan">Coba latihan</button>
+            <button class="rounded-xl px-4 py-2 bg-white/10 hover:bg-white/20 tab-btn" data-tab="pola">Lihat pola</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // State + persistence
+    const progressKey = 'arabic_basic_progress_v1';
+    const maxScore = 12; // updated cap for more activities
+    const state = { score: 0 };
+    function saveProgress() { localStorage.setItem(progressKey, JSON.stringify(state)); }
+    function loadProgress() {
+      const s = localStorage.getItem(progressKey);
+      if (s) {
+        try {
+          const obj = JSON.parse(s);
+          if (typeof obj.score === 'number') state.score = obj.score;
+        } catch {}
+      }
+      updateScore();
+    }
+    function addScore(points) {
+      state.score = Math.min(maxScore, state.score + points);
+      updateScore(); saveProgress();
+    }
+    function updateScore() {
+      const el = document.getElementById('score');
+      const mx = document.getElementById('scoreMax');
+      if (el) el.textContent = state.score;
+      if (mx) mx.textContent = `/ ${maxScore}`;
+    }
+
+    // Tabs
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const sections = {
+      'konsep': document.getElementById('tab-konsep'),
+      'kosa': document.getElementById('tab-kosa'),
+      'tubuh': document.getElementById('tab-tubuh'),
+      'sapaan': document.getElementById('tab-sapaan'),
+      'pola': document.getElementById('tab-pola'),
+      'latihan': document.getElementById('tab-latihan'),
+      'ringkas': document.getElementById('tab-ringkas')
+    };
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.getAttribute('data-tab');
+        // set active
+        tabButtons.forEach(b=>{
+          if (b === btn) {
+            b.classList.add('bg-white','text-emerald-900','font-semibold','shadow');
+            b.classList.remove('bg-white/10','hover:bg-white/20');
+          } else {
+            b.classList.remove('bg-white','text-emerald-900','font-semibold','shadow');
+            b.classList.add('bg-white/10','hover:bg-white/20');
+          }
+        });
+        // show section
+        Object.entries(sections).forEach(([k,sec])=>{
+          if (k===t) sec.classList.remove('hidden');
+          else sec.classList.add('hidden');
+        });
+      });
+    });
+
+    // Reset progress
+    document.getElementById('resetProgress').addEventListener('click', ()=>{
+      state.score = 0; updateScore(); saveProgress();
+      // small confirmation
+      const btn = document.getElementById('resetProgress');
+      const old = btn.textContent;
+      btn.textContent = 'Kemajuan direset!';
+      setTimeout(()=>{ btn.textContent = old; }, 1200);
+    });
+
+    // Flashcards data
+    const faIlWords = [
+      { ar: 'الطَّالِبُ', id: 'siswa' },
+      { ar: 'الْمُعَلِّمُ', id: 'guru' },
+      { ar: 'الطَّالِبَةُ', id: 'siswi' },
+      { ar: 'الرَّجُلُ', id: 'laki-laki' },
+      { ar: 'الْمَرْأَةُ', id: 'perempuan' },
+      { ar: 'الطِّفْلُ', id: 'anak' }
+    ];
+    function makeFlashcards() {
+      const wrap = document.getElementById('flashcards');
+      wrap.innerHTML = '';
+      faIlWords.forEach((w)=>{
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'w-full text-left bg-white/5 rounded-xl p-3 hover:bg-white/10 transition';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-xl font-bold" dir="rtl" lang="ar">${w.ar}</div>
+              <div class="text-emerald-100 text-sm hidden">${w.id}</div>
+            </div>
+            <span class="text-sm bg-white/10 rounded-full px-2 py-1">Lihat arti</span>
+          </div>`;
+        card.addEventListener('click', ()=>{
+          const meaning = card.querySelector('.text-emerald-100');
+          const tag = card.querySelector('span');
+          const hidden = meaning.classList.contains('hidden');
+          meaning.classList.toggle('hidden');
+          tag.textContent = hidden ? 'Sembunyikan' : 'Lihat arti';
+        });
+        wrap.appendChild(card);
+      });
+    }
+
+    // Body vocabulary dataset
+    const bodyVocab = [
+      { ar: 'رَأْس', id: 'kepala' },
+      { ar: 'عَيْن', id: 'mata' },
+      { ar: 'أُذُن', id: 'telinga' },
+      { ar: 'أَنْف', id: 'hidung' },
+      { ar: 'فَم', id: 'mulut' },
+      { ar: 'يَد', id: 'tangan' },
+      { ar: 'قَدَم', id: 'kaki' }
+    ];
+
+    // Build body vocab UI
+    function renderBodyVocab() {
+      const list = document.getElementById('bodyList');
+      const wordsWrap = document.getElementById('bodyWords');
+      const meaningsWrap = document.getElementById('bodyMeanings');
+      if (!list || !wordsWrap || !meaningsWrap) return;
+
+      // list of words with reveal meaning
+      list.innerHTML = '';
+      bodyVocab.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between bg-white/5 rounded-xl px-3 py-2';
+        row.innerHTML = `
+          <span dir="rtl" lang="ar" class="text-xl font-bold">${item.ar}</span>
+          <button type="button" class="text-sm bg-white/10 hover:bg-white/20 rounded-full px-3 py-1">Lihat arti</button>
+          <span class="text-emerald-100 text-sm hidden">${item.id}</span>
+        `;
+        const btn = row.querySelector('button');
+        const meaning = row.querySelector('span.text-emerald-100');
+        btn.addEventListener('click', ()=>{
+          const hidden = meaning.classList.contains('hidden');
+          meaning.classList.toggle('hidden');
+          btn.textContent = hidden ? 'Sembunyikan' : 'Lihat arti';
+        });
+        list.appendChild(row);
+      });
+
+      // Matching game setup
+      wordsWrap.innerHTML = '';
+      meaningsWrap.innerHTML = '';
+      const mixed = shuffle(bodyVocab).slice(0, 5);
+
+      mixed.forEach(item => {
+        const slot = document.createElement('div');
+        slot.className = 'dropzone rounded-xl border-2 border-white/30 p-3 flex items-center justify-between';
+        slot.dataset.accept = item.id; // accept meaning id
+        slot.innerHTML = `
+          <span dir="rtl" lang="ar" class="text-xl font-bold">${item.ar}</span>
+          <div class="text-xs text-emerald-100">Taruh artinya di sini</div>
+        `;
+        addDropForBody(slot);
+        wordsWrap.appendChild(slot);
+      });
+
+      shuffle(mixed).forEach(item => {
+        const chip = document.createElement('div');
+        chip.textContent = item.id;
+        chip.setAttribute('draggable','true');
+        chip.className = 'draggable inline-flex items-center bg-white text-emerald-900 rounded-full px-3 py-1 font-semibold cursor-grab active:cursor-grabbing select-none';
+        chip.dataset.meaning = item.id;
+        addDragEvents(chip);
+        meaningsWrap.appendChild(chip);
+      });
+
+      const form = document.getElementById('bodyMatch');
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        let correct = 0;
+        const zones = wordsWrap.querySelectorAll('.dropzone');
+        zones.forEach(z=>{
+          const chip = Array.from(z.children).find(c=>c.classList && c.classList.contains('draggable'));
+          z.classList.remove('valid','error');
+          if (chip && chip.dataset.meaning === z.dataset.accept) { z.classList.add('valid'); correct++; }
+          else z.classList.add('error');
+        });
+        const res = document.getElementById('bodyResult');
+        if (correct === zones.length) {
+          res.textContent = 'Keren! Semua cocok 🎉';
+          res.className = 'text-sm text-emerald-200';
+          addScore(2);
+        } else {
+          res.textContent = `Betul ${correct}/${zones.length}. Ayo coba lagi!`;
+          res.className = 'text-sm text-red-200';
+        }
+        setTimeout(()=> wordsWrap.querySelectorAll('.dropzone').forEach(z=>z.classList.remove('valid','error')), 1200);
+      });
+    }
+
+    function addDropForBody(zone){
+      zone.addEventListener('dragover', (e)=>{ e.preventDefault(); zone.classList.add('bg-white/10'); });
+      zone.addEventListener('dragleave', ()=> zone.classList.remove('bg-white/10'));
+      zone.addEventListener('drop', (e)=>{
+        e.preventDefault();
+        zone.classList.remove('bg-white/10','valid','error');
+        const payload = e.dataTransfer.getData('text/plain').trim();
+        // Try to find dragged chip among meaning chips
+        let chosen = Array.from(document.querySelectorAll('#bodyMeanings .draggable')).find(x=>{
+          return (x.dataset.meaning && x.dataset.meaning.trim() === payload) || x.textContent.trim() === payload;
+        });
+        if (!chosen) {
+          // if chip moved from another slot
+          chosen = Array.from(document.querySelectorAll('#bodyWords .draggable')).find(x=>x.textContent.trim() === payload) || null;
+        }
+        if (!chosen) return;
+        // one chip per word slot
+        const existing = Array.from(zone.children).find(c=>c.classList && c.classList.contains('draggable'));
+        if (existing) document.getElementById('bodyMeanings').appendChild(existing);
+        zone.appendChild(chosen);
+      });
+    }
+
+    // Greetings (Sapaan) data
+    const greetData = [
+      { ar: 'السَّلَامُ عَلَيْكُمْ', id: 'Semoga keselamatan atas kalian', tr: 'as-salāmu ‘alaikum', reply: 'وَعَلَيْكُمُ السَّلَامُ' },
+      { ar: 'مَرْحَبًا', id: 'Halo/selamat datang', tr: 'marḥaban', reply: 'مَرْحَبًا' },
+      { ar: 'صَبَاحُ الْخَيْرِ', id: 'Selamat pagi', tr: 'ṣabāḥul-khayr', reply: 'صَبَاحُ النُّورِ' },
+      { ar: 'مَسَاءُ الْخَيْرِ', id: 'Selamat sore/malam', tr: 'masā’ul-khayr', reply: 'مَسَاءُ النُّورِ' },
+      { ar: 'كَيْفَ حَالُكَ؟', id: 'Apa kabar (lk.)?', tr: 'kayfa ḥāluka?', reply: 'أَنَا بِخَيْرٍ، الحَمْدُ لِلّٰهِ' }
+    ];
+    function renderGreetings(){
+      // list
+      const list = document.getElementById('greetList');
+      list.innerHTML = '';
+      greetData.forEach(item=>{
+        const row = document.createElement('div');
+        row.className = 'bg-white/5 rounded-xl p-3';
+        row.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div dir="rtl" lang="ar" class="text-2xl font-bold">${item.ar}</div>
+              <div class="text-emerald-200 text-sm italic">${item.tr}</div>
+              <div class="text-emerald-100 text-sm mt-1">${item.id}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-emerald-100">Balasan umum</div>
+              <div dir="rtl" lang="ar" class="font-semibold mt-1">${item.reply}</div>
+            </div>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      // quiz
+      document.getElementById('greetQuiz').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        const a1 = fd.get('qg1'), a2 = fd.get('qg2'), a3 = fd.get('qg3');
+        const res = document.getElementById('greetResult');
+        if (!a1 || !a2 || !a3) {
+          res.textContent = 'Jawab semua dulu ya 🙂';
+          res.className = 'text-sm text-yellow-200';
+          return;
+        }
+        const c1 = (a1 === 'waalaikum');
+        const c2 = (a2 === 'sabah');
+        const c3 = (a3 === 'bekhair');
+        const correct = (c1?1:0)+(c2?1:0)+(c3?1:0);
+        if (correct === 3) {
+          res.textContent = 'Mantap! Semua balasan tepat 🎉';
+          res.className = 'text-sm text-emerald-200';
+          addScore(2);
+        } else {
+          res.textContent = `Betul ${correct}/3. Lihat lagi contoh balasan di kiri ya.`;
+          res.className = 'text-sm text-red-200';
+        }
+      });
+    }
+
+    // Quick match select (Fa'il)
+    function shuffle(arr){ return arr.map(v=>({v, r:Math.random()})).sort((a,b)=>a.r-b.r).map(o=>o.v); }
+    function fillSelectOptions() {
+      const form = document.getElementById('quickMatch');
+      const arOptions = shuffle(faIlWords).slice(0,3);
+      const idOptions = shuffle(arOptions.map(x=>x.id));
+      const pairs = [
+        {ar: 'ar1', id: 'id1'},
+        {ar: 'ar2', id: 'id2'},
+        {ar: 'ar3', id: 'id3'},
+      ];
+      pairs.forEach((p,idx)=>{
+        const arSel = form.querySelector(`select[name="${p.ar}"]`);
+        const idSel = form.querySelector(`select[name="${p.id}"]`);
+        arSel.innerHTML = '<option value="">— pilih —</option>';
+        idSel.innerHTML = '<option value="">— pilih —</option>';
+        arOptions.forEach(o=>{
+          const opt = document.createElement('option');
+          opt.value = o.ar; opt.textContent = o.ar;
+          arSel.appendChild(opt);
+        });
+        idOptions.forEach(o=>{
+          const opt = document.createElement('option');
+          opt.value = o; opt.textContent = o;
+          idSel.appendChild(opt);
+        });
+        // store answer on element for check
+        arSel.dataset.answer = arOptions[idx].id;
+      });
+    }
+    document.getElementById('quickMatch').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const form = e.currentTarget;
+      const pairs = [
+        {ar: 'ar1', id: 'id1'},
+        {ar: 'ar2', id: 'id2'},
+        {ar: 'ar3', id: 'id3'},
+      ];
+      let correct = 0, filled = 0;
+      pairs.forEach(p=>{
+        const arSel = form.querySelector(`select[name="${p.ar}"]`);
+        const idSel = form.querySelector(`select[name="${p.id}"]`);
+        if (arSel.value && idSel.value) filled++;
+        if (idSel.value && idSel.value === arSel.dataset.answer) correct++;
+      });
+      const res = document.getElementById('matchResult');
+      if (filled < 3) {
+        res.textContent = 'Lengkapi pilihan dulu ya 🙂';
+        res.className = 'text-sm text-yellow-200';
+        return;
+      }
+      if (correct === 3) {
+        res.textContent = 'Mantap! Semua benar 🎉';
+        res.className = 'text-sm text-emerald-200';
+        addScore(2);
+      } else {
+        res.textContent = `Betul ${correct}/3. Coba lagi!`;
+        res.className = 'text-sm text-red-200';
+      }
+    });
+
+    // Example Generator
+    document.getElementById('exampleGen').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const [fiil, fiilId] = document.getElementById('fiel').value.split('|');
+      const [fail, failId] = document.getElementById('fail').value.split('|');
+      const mafVal = document.getElementById('mafoul').value;
+      let ar = `${fiil} ${fail}`;
+      let id = `${failId} ${fiilId}`;
+      let note = 'Pola: Fi\'il + Fa\'il';
+      if (mafVal) {
+        const [maf, mafId] = mafVal.split('|');
+        ar += ` ${maf}`;
+        id += ` ${mafId}`;
+        note = 'Pola: Fi\'il + Fa\'il + Maf\'ul';
+      }
+      const box = document.getElementById('genOutput');
+      box.classList.remove('hidden');
+      const [arEl, idEl, noteEl] = box.children;
+      if (arEl.textContent !== ar) arEl.textContent = ar;
+      if (idEl.textContent !== id) idEl.textContent = id;
+      if (noteEl.textContent !== note) noteEl.textContent = note;
+
+      const res = document.getElementById('genResult');
+      res.textContent = 'Contoh dibuat!';
+      res.className = 'text-sm text-emerald-200';
+      addScore(1);
+    });
+
+    // Quiz Fa'il & Maf'ul
+    document.getElementById('quizFM').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const q1 = new FormData(e.currentTarget).get('q1');
+      const q2 = new FormData(e.currentTarget).get('q2');
+      const res = document.getElementById('quizResult');
+      if (!q1 || !q2) {
+        res.textContent = 'Jawab semua dulu ya 🙂';
+        res.className = 'text-sm text-yellow-200';
+        return;
+      }
+      const ok1 = (q1 === 'talib-fail'); // الطَّالِبُ = fa'il
+      const ok2 = (q2 === 'taam');       // الطَّعَامَ = maf'ul
+      const correct = (ok1?1:0) + (ok2?1:0);
+      if (correct === 2) {
+        res.textContent = 'Hebat! Semua tepat 🎉';
+        res.className = 'text-sm text-emerald-200';
+        addScore(2);
+      } else {
+        res.textContent = `Betul ${correct}/2. Perhatikan lagi fa'il (u) vs maf'ul (a).`;
+        res.className = 'text-sm text-red-200';
+      }
+    });
+
+    // Drag & Drop Builder (Fi'il, Fa'il, Maf'ul)
+    const words = [
+      { id: 'w1', text: 'قَرَأَ', role: 'fiil' },
+      { id: 'w2', text: 'الطَّالِبُ', role: 'fail' },
+      { id: 'w3', text: 'الْكِتَابَ', role: 'mafoul' },
+      { id: 'w4', text: 'شَرِبَ', role: 'fiil' },
+      { id: 'w5', text: 'الرَّجُلُ', role: 'fail' },
+      { id: 'w6', text: 'الْمَاءَ', role: 'mafoul' },
+      { id: 'w7', text: 'الْمُعَلِّمُ', role: 'fail' },
+      { id: 'w8', text: 'الدَّرْسَ', role: 'mafoul' },
+      { id: 'w9', text: 'كَتَبَ', role: 'fiil' }
+    ];
+    function renderWordBank() {
+      const bank = document.getElementById('wordBank');
+      bank.innerHTML = '';
+      shuffle(words).forEach(w=>{
+        const chip = document.createElement('div');
+        chip.textContent = w.text;
+        chip.setAttribute('draggable','true');
+        chip.dataset.id = w.id;
+        chip.dataset.role = w.role;
+        chip.className = 'draggable inline-flex items-center gap-2 bg-white text-emerald-900 rounded-full px-3 py-1 font-semibold cursor-grab active:cursor-grabbing select-none';
+        addDragEvents(chip);
+        bank.appendChild(chip);
+      });
+    }
+    function addDragEvents(el) {
+      el.addEventListener('dragstart', (e)=> {
+        const payload = el.dataset.id || el.dataset.meaning || el.textContent.trim();
+        e.dataTransfer.setData('text/plain', payload);
+        el.classList.add('dragging');
+      });
+      el.addEventListener('dragend', ()=> el.classList.remove('dragging'));
+    }
+    const dropzones = document.querySelectorAll('.dropzone');
+    dropzones.forEach(zone=>{
+      zone.addEventListener('dragover', (e)=>{
+        e.preventDefault();
+        zone.classList.add('bg-white/10');
+      });
+      zone.addEventListener('dragleave', ()=> zone.classList.remove('bg-white/10'));
+      zone.addEventListener('drop', (e)=>{
+        e.preventDefault();
+        zone.classList.remove('bg-white/10','valid','error');
+        const id = e.dataTransfer.getData('text/plain');
+        const chip = document.querySelector(`[data-id="${id}"]`);
+        if (!chip) return;
+        // Allow multiple chips per zone as long as role matches
+        const target = zone.getAttribute('data-accept');
+        if (chip.dataset.role !== target) {
+          zone.classList.add('error');
+          setTimeout(()=> zone.classList.remove('error'), 800);
+          return;
+        }
+        zone.appendChild(chip);
+      });
+    });
+    document.getElementById('checkOrder').addEventListener('click', ()=>{
+      let correct = 0;
+      dropzones.forEach(zone=>{
+        const target = zone.getAttribute('data-accept');
+        const chip = Array.from(zone.children).find(c=>c.classList && c.classList.contains('draggable'));
+        zone.classList.remove('valid','error');
+        if (chip && chip.dataset.role === target) {
+          zone.classList.add('valid'); correct++;
+        } else {
+          zone.classList.add('error');
+        }
+      });
+      const res = document.getElementById('orderResult');
+      if (correct === 3) {
+        res.textContent = 'Sempurna! Urutan benar 🎉';
+        res.className = 'text-sm text-emerald-200';
+        addScore(3);
+      } else {
+        res.textContent = `Benar ${correct}/3. Coba perhatikan lagi.`;
+        res.className = 'text-sm text-red-200';
+      }
+      setTimeout(()=> dropzones.forEach(z=>z.classList.remove('valid','error')), 1200);
+    });
+    document.getElementById('resetOrder').addEventListener('click', ()=>{
+      renderWordBank();
+      document.getElementById('orderResult').textContent = '';
+      dropzones.forEach(zone=>{
+        const chip = Array.from(zone.children).find(c=>c.classList && c.classList.contains('draggable'));
+        if (chip) document.getElementById('wordBank').appendChild(chip);
+        zone.classList.remove('valid','error');
+      });
+    });
+
+    // Init
+    loadProgress();
+    makeFlashcards();
+    renderBodyVocab();
+    renderGreetings();
+    fillSelectOptions();
+    renderWordBank();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'983e9b2de599fda0',t:'MTc1ODY3ODM2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
